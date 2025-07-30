@@ -66,8 +66,9 @@ pipeline {
                     docker.withRegistry('https://registry.hub.docker.com',hubCred){
                         docker.image(imageName + ":" + imageTag).push()
                         // 
+                    }
+                    bat 'docker images | findstr narayananwebapp'
                 }
-                bat 'docker images | findstr narayananwebapp'
             }
          }
     }
