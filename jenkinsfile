@@ -5,6 +5,8 @@ pipeline {
         REPO_NAME='https://github.com/NarayananDurai07/html-sample-app.git'
         BRANCH_NAME ='master'
         SONAR_TOKEN= credentials('Narayanan_SQ_Token_Day3')
+        SONAR_PROJECT_KEY =  'Narayanan_scan2'
+        SONAR_SERVER_NAME = 'MYSQ_Server' // name we have configured under jenkins global confir
     }
 
     stages {   
@@ -37,13 +39,19 @@ pipeline {
          stage('SAST'){
             steps{
                 echo 'SAST'
-                bat """
-                %SONAR_HOME%\\sonar-scanner.bat \
-                -Dsonar.projectKey=Narayanan_scan2 \
-                 -Dsonar.sources=. \
-                -Dsonar.host.url=http://13.203.151.240:9000 \
-                -Dsonar.token=${SONAR_TOKEN}
-                """
+                script {
+                    withSonarQubeEnv("${SONAR_SERVER_NAME}") {
+                
+                    bat """
+                    %SONAR_HOME%\\sonar-scanner \
+                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=${SONAR_SERVER_NAME} \ // jenkins internal env variable
+                    -Dsonar.token=${SONAR_TOKEN}
+                    """
+
+                    }                
+                }
             }
          }
     }
