@@ -61,7 +61,7 @@ pipeline {
                 script{
                     def imageName = "narann/narayananwebapp-iis-ltsc2022"
                     def imageTag = "codev1"
-                    def hubcred = ${DOCKER_CRED}
+                    def hubcred = "${DOCKER_CRED}"
                     // calling jenkins pluing docker pipeline to push
                     docker.withRegistry('https://registry.hub.docker.com',hubCred){
                         docker.image(imageName + ":" + imageTag).push()
