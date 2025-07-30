@@ -30,7 +30,7 @@ pipeline {
          {
             steps{
                 echo 'Git checkout'
-                git url: "${REPO_NAME}", branch: "${BRANCH_HOME}"
+                git url: "${REPO_NAME}", branch: "${BRANCH_NAME}"
             }
          }
     }
