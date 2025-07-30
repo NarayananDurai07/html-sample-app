@@ -4,10 +4,16 @@ pipeline {
         SONAR_HOME = 'C:\\Users\\Administrator\\Desktop\\Narayanan-apps\\tools\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin'
     }
 
-    stages {       
-     // stage to verify sonar-scanner 
-     stage('sonar-scaner verify'){
-         steps {
+    stages {   
+         // stage1
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }    
+        // stage to verify sonar-scanner 
+        stage('sonar-scaner verify'){
+             steps {
              echo 'checking version'
              // bat or pwsh
              //%SONAR_HOME%\\
@@ -15,7 +21,7 @@ pipeline {
              C:\\Users\\Administrator\\Desktop\\Narayanan-apps\\tools\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner --version
              """
            
+            }
          }
-     }
     }
 }
