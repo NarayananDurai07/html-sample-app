@@ -14,15 +14,14 @@ pipeline {
         // stage to verify sonar-scanner 
         stage('sonar-scaner verify'){
              steps {
-             echo 'checking version'
-             // bat or pwsh
-             //%SONAR_HOME%\\
-             bat """
-             C:\\Users\\Administrator\\Desktop\\Narayanan-apps\\tools\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner --version
-             docker version
-             java --version 
-             """
-           
+                echo 'checking version'
+                // bat or pwsh
+                //%SONAR_HOME%\\
+                bat """
+                C:\\Users\\Administrator\\Desktop\\Narayanan-apps\\tools\\sonar-scanner-cli-7.1.0.4889-windows-x64\\sonar-scanner-7.1.0.4889-windows-x64\\bin\\sonar-scanner --version
+                docker version
+                java --version 
+                """
             }
          }
     }
