@@ -7,6 +7,7 @@ pipeline {
         SONAR_TOKEN= credentials('Narayanan_SQ_Token_Day3')
         SONAR_PROJECT_KEY =  'Narayanan_scan2'
         SONAR_SERVER_NAME = 'MYSQ_Server' // name we have configured under jenkins global confir
+        DOCKER_CRED= 'narayanan_docker_hub'
     }
 
     stages {   
@@ -58,9 +59,13 @@ pipeline {
             steps{
                 echo ' docker image'
                 script{
-                    def imageName = "docker.io/narann/narayananwebapp-iis-ltsc2022"
+                    def imageName = "docker.io/narann/narayananapp--iis-ltsc2022"
                     def imageTag = "codev1"
-                    docker.build("${imageName}:${imageTag}",".")
+                    def hubcred = ${DOCKER_CRED}
+                    // calling jenkins pluing docker pipeline to push
+                    docker.withRegistry('https://registry.hub.docker.com',hubCred){
+                        docker.image(imageName + ":" + imageTag).push()
+                        // 
                 }
                 bat 'docker images | findstr narayananwebapp'
             }
