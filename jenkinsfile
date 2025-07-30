@@ -37,8 +37,11 @@ pipeline {
             steps{
                 echo 'SAST'
                 bat """
-                %SONAR_HOME%\\sonar-scanner.bat -D"sonar.projectKey=Narayanan_scan2" -D"sonar.sources=." 
-                -D"sonar.host.url=http://13.203.151.240:9000" -D"sonar.token=sqp_55249b1342fcb458426c4eea5ecae2767ff03b97"
+                %SONAR_HOME%\\sonar-scanner.bat \
+                -Dsonar.projectKey=Narayanan_scan2 \
+                 -Dsonar.sources=. \
+                -Dsonar.host.url=http://13.203.151.240:9000 \
+                -Dsonar.token=sqp_55249b1342fcb458426c4eea5ecae2767ff03b97
                 """
             }
          }
