@@ -58,7 +58,7 @@ pipeline {
             steps{
                 echo ' docker image'
                 script{
-                    def imageName = "narayananwebapp-iis-ltsc2022"
+                    def imageName = "docker.io/narann/narayananwebapp-iis-ltsc2022"
                     def imageTag = "codev1"
                     docker.build("${imageName}:${imageTag}",".")
                 }
