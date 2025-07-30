@@ -54,5 +54,16 @@ pipeline {
                 }
             }
          }
+         stage('building docker image'){
+            steps{
+                echo ' docker image'
+                script{
+                    def imageName = "Narayananwebapp-iis-ltsc2022"
+                    def imageTag = "codev1"
+                    docker.build("${imageName}:${imageTag}",".")
+                }
+                bat 'docker images | findstr Narayananwebapp'
+            }
+         }
     }
 }
