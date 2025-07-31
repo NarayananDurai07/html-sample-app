@@ -74,14 +74,14 @@ pipeline {
             }               
             
         }
-        /*stage('trivy scan'){
+        stage('trivy scan'){
             steps {
                 echo 'running scan'
                 bat """
-                trivy image  --severity HIGH,CRITICAL --format table -o ${TRIVY_REPORT} ${IMAGE_NAME}:${IMAGE_TAG}
+                trivy image ${IMAGE_NAME}:${IMAGE_TAG} --severity HIGH,CRITICAL --format table --report summary -o ${TRIVY_REPORT} --skip-version-check 
                 findstr /I "HIGH CRITICAL"  ${TRIVY_REPORT}  >null
 
-                if %errorlevel% != 0 (
+                if %errorlevel% == 0 (
                 echo [ERROR] HIGH or ciritical found 
                 exit /b 1
                 )  
@@ -90,7 +90,7 @@ pipeline {
                 )
                 """
             }
-        }*/
+        }
          stage('Pushing docker image'){
             steps{
                 echo ' docker image'
