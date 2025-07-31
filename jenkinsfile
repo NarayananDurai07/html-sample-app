@@ -80,7 +80,7 @@ pipeline {
                     // --no-progress: Suppresses progress bar in output for cleaner logs.
                     // ${DOCKER_IMAGE_NAME}: Replace with your actual image name and tag
                     try {
-                        sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL docker.io/narann/hello-world:narayanv1"
+                        sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL narann/hello-world:narayanv1"
                         echo "Trivy scan completed successfully with no vulnerabilities found."
                     } catch (Exception e) {
                         echo "Trivy scan found vulnerabilities. Build failing."
