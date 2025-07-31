@@ -10,7 +10,7 @@ pipeline {
         DOCKER_CRED= 'narayanan_docker_hub'
         TRIVY_REPORT='report.txt'
         IMAGE_NAME='docker.io/narann/hello-world'
-        IMAGE-TAG='narayanv1'
+        IMAGE_TAG='narayanv1'
     }
 
     stages {   
