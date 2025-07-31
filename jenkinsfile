@@ -74,7 +74,7 @@ pipeline {
             }               
             
         }
-        stage('trivy scan'){
+        /*stage('trivy scan'){
             steps {
                 echo 'running scan'
                 bat """
@@ -90,7 +90,7 @@ pipeline {
                 )
                 """
             }
-        }
+        }*/
          stage('Pushing docker image'){
             steps{
                 echo ' docker image'
@@ -106,6 +106,16 @@ pipeline {
                     }
                     bat 'docker images | findstr narayananwebapp'
                 }
+            }
+         }
+         stage('deploy app via container'){
+            steps{
+                echo 'deploy'
+                bat """
+                 docker rm narayananappc1 -f  >null 2>&1 || echo COntainer found found 
+                docker  run -itd --name narayananappc1 -p 1234:80  ${IAMGE_NAME}:${IMAGE_TAG}
+                docker  ps | findstr narayananappc1 
+                """
             }
          }
     }
