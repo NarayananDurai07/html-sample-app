@@ -112,9 +112,9 @@ pipeline {
             steps{
                 echo 'deploy'
                 bat """
-                 docker rm narayananappc1 -f  >null 2>&1 || echo COntainer found found 
-                docker  run -itd --name narayananappc1 -p 1234:80  ${IMAGE_NAME}:${IMAGE_TAG}
-                docker  ps | findstr narayananappc1 
+                 docker rm narayananappc2 -f  >null 2>&1 || echo COntainer found found 
+                docker  run -itd --name narayananappc2 -p 1235:80  ${IMAGE_NAME}:${IMAGE_TAG}
+                docker  ps | findstr narayananappc2
                 """
             }
          }
@@ -125,7 +125,7 @@ pipeline {
             }
             steps{
                  git url: "${REPO_NAME}", branch: "${BRANCH_NAME}"
-                echo 'using zap'
+                echo 'using  zap'
                 sh 'docker run -t --rm  ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://172.31.44.127:1234' -I
                 }
          }
