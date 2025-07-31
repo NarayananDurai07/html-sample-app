@@ -78,7 +78,7 @@ pipeline {
                 trivy image  --severity HIGH,CRITICAL --format table -o report.txt docker.io/narann/hello-world:narayanv1
                 findstr /I "HIGH CRITICAL"  report.txt  >null
 
-                if %errorlevel% == 0 (
+                if %errorlevel% != 0 (
                 echo [ERROR] HIGH or ciritical found 
                 exit /b 1
                 )  
