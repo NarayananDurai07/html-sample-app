@@ -113,7 +113,7 @@ pipeline {
                 echo 'deploy'
                 bat """
                  docker rm narayananappc1 -f  >null 2>&1 || echo COntainer found found 
-                docker  run -itd --name narayananappc1 -p 1234:80  ${IAMGE_NAME}:${IMAGE_TAG}
+                docker  run -itd --name narayananappc1 -p 1234:80  ${IMAGE_NAME}:${IMAGE_TAG}
                 docker  ps | findstr narayananappc1 
                 """
             }
