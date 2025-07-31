@@ -67,7 +67,7 @@ pipeline {
 
                 }
                 // verify image build 
-                bat 'docker images   | findstr ashuwebapp'
+                bat 'docker images   | findstr narayananwebapp'
             }
                 
             
