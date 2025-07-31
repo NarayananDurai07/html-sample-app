@@ -55,9 +55,27 @@ pipeline {
                 }
             }
          }
-         stage('building docker image'){
+          // using docker plugin to build container image 
+        stage('building docker image'){
+            steps {
+                echo 'starting docker build process'
+                // to use docker plugin using script 
+                script {
+                    def imageName  = "docker.io/narann/narayananwebapp-iis-ltsc2022"
+                    def imageTag   = "codev1"
+                    docker.build("${imageName}:${imageTag}",".")
+
+                }
+                // verify image build 
+                bat 'docker images   | findstr ashuwebapp'
+            }
+                
+            
+        }
+         stage('Pushing docker image'){
             steps{
                 echo ' docker image'
+
                 script{
                     def imageName = "narann/narayananwebapp-iis-ltsc2022"
                     def imageTag = "codev1"
