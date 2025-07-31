@@ -71,23 +71,21 @@ pipeline {
             }               
             
         }
-            stage('Trivy Scan for Zero Vulnerabilities') {
+        stage('trivy scan'){
             steps {
-                script {
-                    // Execute Trivy scan and set exit code to 1 for any vulnerability
-                    // --exit-code 1: Exits with a non-zero code if vulnerabilities are found, causing Jenkins to fail.
-                    // --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL: Includes all severity levels.
-                    // --no-progress: Suppresses progress bar in output for cleaner logs.
-                    // ${DOCKER_IMAGE_NAME}: Replace with your actual image name and tag
-                    try {
-                        sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL narann/hello-world:narayanv1"
-                        echo "Trivy scan completed successfully with no vulnerabilities found."
-                    } catch (Exception e) {
-                        echo "Trivy scan found vulnerabilities. Build failing."
-                        currentBuild.result = 'FAILURE'
-                        throw e // Re-throw the exception to ensure the pipeline stage fails
-                    }
-                }
+                echo 'running scan'
+                bat """
+                trivy image  --severity HIGH,CRITICAL --format table -o report.txt docker.io/narann/hello-world:narayanv1
+                findstr /I "HIGH CRITICAL"  report.txt  >null
+
+                if %errorlevel% == 0 (
+                echo [ERROR] HIGH or ciritical found 
+                exit /b 1
+                )  
+                else (
+                echo no error found 
+                )
+                """
             }
         }
          stage('Pushing docker image'){
